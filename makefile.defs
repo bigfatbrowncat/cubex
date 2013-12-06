@@ -1,0 +1,28 @@
+ifeq ($(UNAME), Darwin)	# OS X
+  PLATFORM_TAG = osx-x86_64
+else ifeq ($(UNAME) $(ARCH), Linux x86_64)	# linux on PC
+  PLATFORM_TAG = linux-x86_64
+else ifeq ($(UNAME) $(ARCH), Linux armv6l)	# linux on Raspberry Pi
+  PLATFORM_TAG = linux-armv6l
+else ifeq ($(OS) $(ARCH), Windows_NT i686)	# Windows 32-bit
+  PLATFORM_TAG = win-i386
+else ifeq ($(OS) $(ARCH), Windows_NT x86_64)	# Windows 64-bit
+  PLATFORM_TAG = win-x86_64
+endif
+
+ifeq ($(UNAME), Darwin)	# OS X
+  PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
+else ifeq ($(UNAME) $(ARCH), Linux x86_64)	# linux on PC
+  PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
+else ifeq ($(OS), Windows_NT)	# Windows
+  PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
+endif
+
+package: libcubex.a
+	@echo Packaging all necessary libs into libcubex.a 
+	(\
+	    mkdir -p pack; cd pack; ar -x ../../$(PNG_LIB); ar -x ../libcubex.a; ar -r ../libcubex-allinc.a *;\
+	);
+	
+clean-package: clean
+	rm libcubex-allinc.a; rm -rf pack
