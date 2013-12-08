@@ -1,3 +1,8 @@
+UNAME := $(shell uname)
+ifndef ARCH
+  ARCH := $(shell uname -m)
+endif
+
 ifeq ($(UNAME), Darwin)	# OS X
   PLATFORM_TAG = osx-x86_64
 else ifeq ($(UNAME) $(ARCH), Linux x86_64)	# linux on PC
@@ -10,13 +15,7 @@ else ifeq ($(OS) $(ARCH), Windows_NT x86_64)	# Windows 64-bit
   PLATFORM_TAG = win-x86_64
 endif
 
-ifeq ($(UNAME), Darwin)	# OS X
-  PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
-else ifeq ($(UNAME) $(ARCH), Linux x86_64)	# linux on PC
-  PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
-else ifeq ($(OS), Windows_NT)	# Windows
-  PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
-endif
+PNG_LIB = lib/$(PLATFORM_TAG)/libpng16.a
 
 package: libcubex.a
 	@echo Packaging all necessary libs into libcubex.a 
