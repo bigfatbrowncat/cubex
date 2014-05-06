@@ -56,11 +56,6 @@ TOOLS_PATH = tools/$(PLATFORM_TAG)
 PACKAGE_NAME = zetesfeet.zip
 CUBEX_INCLUDES = $(shell find include/cubex -type f -name \*.h )
 
-
-# Other files that should just be copied to the target folder 
-JUST_COPY_FILES = $(CUBEX_INCLUDES)
-include ../../zetes/common-scripts/just_copy.mk
-
 all: libcubex $(JUST_COPY_FILES_TARGET)
 	@echo "*** $(APPLICATION_NAME) building process completed successfully. ***"
 	@echo You can find the result in folders:
@@ -68,6 +63,10 @@ all: libcubex $(JUST_COPY_FILES_TARGET)
 	@echo "  $(realpath $(LIBRARY_PATH))"
 	@echo "  $(realpath $(JAVA_LIBRARY_PATH))"
 	@echo
+
+# Other files that should just be copied to the target folder 
+JUST_COPY_FILES = $(CUBEX_INCLUDES)
+include ../../zetes/common-scripts/just_copy.mk
 
 package: $(TARGET)/$(PACKAGE_NAME)
 
