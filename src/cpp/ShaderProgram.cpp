@@ -36,6 +36,8 @@ namespace cubex
 	    printf("Compiling vertex shader\n");
 #ifdef __APPLE__
 	    string vertexShaderCode2 = string("#version 150\n") + vertexShaderCode;
+#else
+	    string vertexShaderCode2 = vertexShaderCode;
 #endif
 	    char const* vertexShaderCodePointer = vertexShaderCode2.c_str();
 	    glShaderSource(vertexShaderID, 1, &vertexShaderCodePointer, NULL);
@@ -60,6 +62,8 @@ namespace cubex
 	    printf("Compiling fragment shader\n");
 #ifdef __APPLE__
 	    string fragmentShaderCode2 = string("#version 150\n") + fragmentShaderCode;
+#else
+	    string fragmentShaderCode2 = fragmentShaderCode;
 #endif
 	    char const * fragmentSourcePointer = fragmentShaderCode2.c_str();
 	    glShaderSource(fragmentShaderID, 1, &fragmentSourcePointer , NULL);
