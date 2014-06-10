@@ -1,10 +1,8 @@
 APPLICATION_NAME = Cubex
 
-include ../../zetes/common-scripts/globals.mk
+ZETES_PATH = ../../zetes
 
-ifndef TARGET
-  TARGET := ./target
-endif
+include $(ZETES_PATH)/common-scripts/globals.mk
 
 SRC = src
 BIN = bin
@@ -14,7 +12,6 @@ LIB = lib
 DEBUG_OPTIMIZE = -O0 -g
 
 ifeq ($(UNAME), Darwin)	# OS X
-  JAVA_HOME = $(shell /usr/libexec/java_home)
   PLATFORM_GENERAL_INCLUDES = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/darwin"
 else ifeq ($(UNAME) $(ARCH), Linux x86_64)		# linux on PC
   PLATFORM_GENERAL_INCLUDES = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
